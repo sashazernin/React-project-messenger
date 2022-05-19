@@ -9,11 +9,11 @@ const Posts = (props) => {
     let NewPost = React.createRef()
 
     let AddPost = () => {
-        props.AddPost()
+        props.Dispatch({type: 'AddPost'})
     }
 
     let NewPostText = () => {
-        props.NewPostText(NewPost.current.value)
+        props.Dispatch({type:'PostText',text:NewPost.current.value})
     }
 
     return (
