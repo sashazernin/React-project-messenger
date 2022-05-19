@@ -8,38 +8,67 @@ let state = {
         {id:"3", name:"Timofey"}
     ],
 
-    Posts: [
-        {id: "1", massage: "Hi", likes: "0"},
-        {id: "2", massage: "somebody is here?", likes: "2"},
-        {id: "3", massage: "why everyone don't like me?", likes: "0"},
-        {id: "4", massage: "uhh...", likes: "0"},
-        {id: "5", massage: "...", likes: "0"},
-        {id: "6", massage: "...", likes: "10"}
-    ],
+    ProfilePage: {
+        Posts: [
+            {id: "1", message: "Hi", likes: "0"},
+            {id: "2", message: "somebody is here?", likes: "2"},
+            {id: "3", message: "why everyone don't like me?", likes: "0"},
+            {id: "4", message: "uhh...", likes: "0"},
+            {id: "5", message: "...", likes: "0"},
+            {id: "6", message: "...", likes: "10"}
+        ],
+        PostText: ''
+    },
 
-    Massages: [
-        {id:"1",massage:"Damir loh"},
-        {id:"2",massage:"soglasen?"},
-        {id:"3",massage:"che ignorish?"},
-        {id:"4",massage:"a ti i est damir"},
-        {id:"5",massage:"ti loh"},
-    ]
+    MessagePage: {
+        Messages: [
+            {id:"1",message:"Damir loh"},
+            {id:"2",message:"soglasen?"},
+            {id:"3",message:"che ignorish?"},
+            {id:"4",message:"a ti i est damir"},
+            {id:"5",message:"ti loh"},
+        ],
+        MessageText: ""
+    }
+
 
 }
 
-export const AddPost = (massage) => {
+window.state = state
+
+export const AddPost = () => {
     let Post = {
         id: "1",
-        massage: massage,
+        message: state.ProfilePage.PostText,
         likes: "0"
     }
-    state.Posts.push(Post)
-    console.log(state)
+    state.ProfilePage.Posts.push(Post)
+    state.ProfilePage.PostText = ""
     renderTree(state);
 }
 
-export const subs = (obs) => {
-    renderTree = obs;
+export const NewPostText = (text) => {
+    state.ProfilePage.PostText = text
+    renderTree(state);
+}
+
+export const SendMessage = () => {
+    let Message = {
+        id: "1",
+        message:state.MessagePage.MessageText
+    }
+    state.MessagePage.Messages.push(Message)
+    state.MessagePage.MessageText = ""
+    renderTree(state)
+}
+
+export const MessageTextChange = (text) => {
+    state.MessagePage.MessageText = text
+    renderTree(state)
+}
+
+export const Subscribe = (observer) => {
+    renderTree = observer;
 }
 
 
