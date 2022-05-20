@@ -2,25 +2,26 @@ import c from './Messages.module.css';
 import React, {createRef} from 'react';
 import {NavLink} from "react-router-dom";
 import Message from "./Message/Message";
-const Messages = (props) => {
-    let MessagesCount = props.Messages.map( m => <Message id={m.id} message={m.message}/> )
+import {MessageTextChangeActionCreator, SendMessageActionCreator} from "../../redux/MessagesReducer";
 
-    let MessageText = React.createRef()
+const Messages = (props) => {
+
+    let MessagesCount = props.Messages.map(m => <Message id={m.id} message={m.message}/>)
 
     let SendMessage = () => {
-        props.Dispatch({type:"SendMessage"})
+        props.Dispatch(SendMessageActionCreator())
     }
 
-    let MessageTextChange = () => {
-        props.Dispatch({type:"MessageTextChange",text: MessageText.current.value})
+    let MessageTextChange = (e) => {
+        props.Dispatch(MessageTextChangeActionCreator(e.target.value))
     }
 
-  return(
-      <div>
-          {MessagesCount}
-          <textarea ref={MessageText} value={props.MessageText} onChange={MessageTextChange}/>
-          <button onClick={SendMessage}>Send</button>
-      </div>
-  )
+    return (
+        <div>
+            {MessagesCount}
+            <textarea placeholder={"Введите сообщение"} value={props.MessageText} onChange={MessageTextChange}/>
+            <button onClick={SendMessage}>Send</button>
+        </div>
+    )
 }
 export default Messages;

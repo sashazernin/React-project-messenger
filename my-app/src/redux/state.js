@@ -1,3 +1,6 @@
+import ProfileReducer from "./ProfileReducer";
+import MessagesReducer from "./MessagesReducer";
+
 let store = {
     _state: {
         Dialogs: [
@@ -42,34 +45,11 @@ let store = {
         this._CallSubscriber = observer;
     },
 
-    Dispatch(action){
-        if(action.type === "AddPost"){
-            let Post = {
-                id: "1",
-                message: this._state.ProfilePage.PostText,
-                likes: "0"
-            }
-            this._state.ProfilePage.Posts.push(Post)
-            this._state.ProfilePage.PostText = ""
-            this._CallSubscriber(this._state);
-        }
-        if(action.type === "PostText"){
-            this._state.ProfilePage.PostText = action.text
-            this._CallSubscriber(this._state);
-        }
-        if(action.type === "SendMessage"){
-            let Message = {
-                id: "1",
-                message:this._state.MessagePage.MessageText
-            }
-            this._state.MessagePage.Messages.push(Message)
-            this._state.MessagePage.MessageText = ""
-            this._CallSubscriber(this._state)
-        }
-        if(action.type === "MessageTextChange"){
-            this._state.MessagePage.MessageText = action.text
-            this._CallSubscriber(this._state)
-        }
+    Dispatch(Action){
+        this._state.ProfilePage = ProfileReducer(this._state.ProfilePage,Action)
+        this._state.MessagePage = MessagesReducer(this._state.MessagePage,Action)
+        this._CallSubscriber(this._state)
     }
 }
+
 export default store;
