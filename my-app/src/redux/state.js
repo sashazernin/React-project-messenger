@@ -3,7 +3,7 @@ import MessagesReducer from "./MessagesReducer";
 
 let store = {
     _state: {
-        Dialogs: [
+        DialogsPage: [
             {id:"1", name:"Dmitry"},
             {id:"2", name:"Sasha"},
             {id:"3", name:"Timofey"}

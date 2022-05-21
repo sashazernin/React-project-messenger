@@ -9,11 +9,11 @@ const Messages = (props) => {
     let MessagesCount = props.Messages.map(m => <Message id={m.id} message={m.message}/>)
 
     let SendMessage = () => {
-        props.Dispatch(SendMessageActionCreator())
+        props.dispatch(SendMessageActionCreator())
     }
 
     let MessageTextChange = (e) => {
-        props.Dispatch(MessageTextChangeActionCreator(e.target.value))
+        props.dispatch(MessageTextChangeActionCreator(e.target.value))
     }
 
     return (

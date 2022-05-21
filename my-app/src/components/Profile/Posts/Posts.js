@@ -8,11 +8,11 @@ const Posts = (props) => {
     let PostsCount = props.Posts.map(p => <Post id={p.id} text={p.message} likes={p.likes}/>)
 
     let AddPost = () => {
-        props.Dispatch(AddPostActionCreator())
+        props.dispatch(AddPostActionCreator())
     }
 
     let NewPostText = (e) => {
-        props.Dispatch(NewPostTextActionCreator(e.target.value))
+        props.dispatch(NewPostTextActionCreator(e.target.value))
     }
 
     return (

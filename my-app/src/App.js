@@ -17,17 +17,17 @@ const App = (props) => {
                     <Menu/>
                     <Routes>
                         <Route path="/Dialogs/"
-                               element={<Dialogs Dialogs={props.AppState.Dialogs}/>}
+                               element={<Dialogs Dialogs={props.state.DialogsPage.Dialogs}/>}
                         />
                         <Route path="Dialogs/*"
                                element={<Messages
-                                   Messages={props.AppState.MessagePage.Messages}
-                                   MessageText = {props.AppState.MessagePage.MessageText}
-                                   Dispatch={props.Dispatch}
+                                   Messages={props.state.MessagesPage.Messages}
+                                   MessageText = {props.state.MessagesPage.MessageText}
+                                   dispatch={props.dispatch}
                                />}
                         />
                         <Route path="Profile"
-                               element={<Profile ProfilePage={props.AppState.ProfilePage} Dispatch={props.Dispatch}/>}
+                               element={<Profile ProfilePage={props.state.ProfilePage} dispatch={props.dispatch}/>}
                         />
                     </Routes>
                 </div>

@@ -1,7 +1,20 @@
 const SendMessage = 'SendMessage'
 const MessageText = 'MessageText'
-export const MessagesReducer = (State, Action) => {
-    switch (Action) {
+
+let InitialState = {
+    Messages: [
+        {id:"1",message:"Damir loh"},
+        {id:"2",message:"soglasen?"},
+        {id:"3",message:"che ignorish?"},
+        {id:"4",message:"a ti i est damir"},
+        {id:"5",message:"ti loh"},
+    ],
+        MessageText: ""
+}
+
+const MessagesReducer = (State = InitialState, Action) => {
+
+    switch (Action.type) {
         case SendMessage:
             let Message = {
                 id: "1",
@@ -25,6 +38,7 @@ export const SendMessageActionCreator = () => {
 
 export const MessageTextChangeActionCreator = (text) => {
     return{
+
         type:MessageText,text: text
     }
 }
