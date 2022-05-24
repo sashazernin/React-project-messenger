@@ -9,36 +9,36 @@ let InitialState = {
         {id:"4",message:"a ti i est damir"},
         {id:"5",message:"ti loh"},
     ],
-        MessageText: ""
+        MessageText: "Текст Сообщения"
 }
 
-const MessagesReducer = (State = InitialState, Action) => {
-
-    switch (Action.type) {
-        case SendMessage:
-            let Message = {
-                id: "1",
-                message: State.MessageText
+const MessagesReducer = (state = InitialState, action) => {
+    switch (action.type) {
+        case SendMessage: {
+            return {
+                ...state,
+                Messages: [...state.Messages, {id: '1', message: state.MessageText}],
+                MessageText: ""
             }
-            State.Messages.push(Message)
-            State.MessageText = ""
-            break
-        case MessageText:
-            State.MessageText = Action.text
-            break
+        }
+        case MessageText: {
+            return {
+                ...state,
+                MessageText: action.text
+            }
+        }
+        default: return state
     }
-    return State
 }
 
-export const SendMessageActionCreator = () => {
+export const SendMessageCreator = () => {
     return{
         type:SendMessage
     }
 }
 
-export const MessageTextChangeActionCreator = (text) => {
+export const MessageTextChangeCreator = (text) => {
     return{
-
         type:MessageText,text: text
     }
 }

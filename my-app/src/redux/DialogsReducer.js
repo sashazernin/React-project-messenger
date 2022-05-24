@@ -6,8 +6,16 @@ let InitialState = {
     ]
 }
 
-const DialogsReducer = (State = InitialState, Action) => {
-    return State
+const DialogsReducer = (state = InitialState, action) => {
+    let stateCopy = {
+        ...state
+    }
+
+    switch (action.type){
+
+    }
+
+    return stateCopy
 }
 
 export default DialogsReducer

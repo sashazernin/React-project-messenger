@@ -3,11 +3,12 @@ import React from 'react';
 import Header from './components/Header/Header';
 import Menu from './components/Menu/Menu';
 import Profile from './components/Profile/Profile';
-import Dialogs from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Routes, Route, Redirect} from "react-router-dom";
-import Messages from "./components/Messages/Messages";
+import MessagesContainer from "./components/Messages/MessagesContainer";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
-const App = (props) => {
+const App = () => {
 
     return (
         <BrowserRouter>
@@ -16,19 +17,10 @@ const App = (props) => {
                     <Header/>
                     <Menu/>
                     <Routes>
-                        <Route path="/Dialogs/"
-                               element={<Dialogs Dialogs={props.state.DialogsPage.Dialogs}/>}
-                        />
-                        <Route path="Dialogs/*"
-                               element={<Messages
-                                   Messages={props.state.MessagesPage.Messages}
-                                   MessageText = {props.state.MessagesPage.MessageText}
-                                   dispatch={props.dispatch}
-                               />}
-                        />
-                        <Route path="Profile"
-                               element={<Profile ProfilePage={props.state.ProfilePage} dispatch={props.dispatch}/>}
-                        />
+                        <Route path="/Dialogs/" element={<DialogsContainer />}/>
+                        <Route path="Dialogs/*" element={<MessagesContainer />}/>
+                        <Route path="Profile" element={<Profile/>}/>
+                        <Route path="Users" element={<UsersContainer/>}/>
                     </Routes>
                 </div>
             </div>

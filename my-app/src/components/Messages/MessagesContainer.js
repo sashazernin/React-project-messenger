@@ -1,24 +1,26 @@
-import c from './Messages.module.css';
 import React, {createRef} from 'react';
-import {NavLink} from "react-router-dom";
-import Message from "./Message/Message";
-import {MessageTextChangeActionCreator, SendMessageActionCreator} from "../../redux/MessagesReducer";
+import {MessageTextChangeCreator, SendMessageCreator} from "../../redux/MessagesReducer";
+import Messages from "./Messages";
+import {connect} from "react-redux";
 
-const Messages = (props) => {
-
-    let SendMessage = () => {
-        props.Dispatch(SendMessageActionCreator())
+let mapStateToProps = (state) => {
+    return{
+        Messages: state.MessagesPage.Messages,
+        MessageText: state.MessagesPage.MessageText
     }
-
-    let MessageTextChange = (e) => {
-        props.Dispatch(MessageTextChangeActionCreator(e.target.value))
-    }
-
-    return (
-        <Messages
-            SendMessage = {SendMessageActionCreator}
-            MessageTextChange = {props.Store.Dispatch(MessageTextChange)}
-        />
-    )
 }
-export default Messages;
+
+let mapDispatchToProps = (dispatch) => {
+    return{
+        SendMessage: () => {
+            dispatch(SendMessageCreator())
+        },
+        MessageTextChange: (text) => {
+            dispatch(MessageTextChangeCreator(text))
+        }
+    }
+}
+
+const SMessagesContainer = connect(mapStateToProps,mapDispatchToProps)(Messages);
+
+export default SMessagesContainer;

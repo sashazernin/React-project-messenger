@@ -1,16 +1,51 @@
 import React from 'react';
-import Post from './Post/Post';
-import {AddPostActionCreator, NewPostTextActionCreator} from "../../../redux/ProfileReducer";
+import Posts from "./Posts";
+import {AddPostCreator, NewPostTextCreator} from "../../../redux/ProfileReducer";
+import {connect} from "react-redux";
 
-const Posts = (props) => {
-
-    return (
-       <Posts
-           Posts = {props.state}
-           AddPost = {props.store.dispatch(AddPostActionCreator())}
-           NewPostText = {props.store.dispatch(NewPostTextActionCreator())}
-           PostText = {props.state.PostText}
-       />
-    )
+let mapStateToProps = (state) => {
+    return{
+        Posts: state.ProfilePage.Posts,
+        PostText: state.ProfilePage.PostText
+    }
 }
-export default Posts;
+
+let mapDispatchToProps = (dispatch) => {
+    return{
+        AddPost: () => {
+            dispatch(AddPostCreator())
+        },
+        NewPostText: (text) => {
+            dispatch(NewPostTextCreator(text))
+        }
+    }
+}
+
+const PostsContainer = connect(mapStateToProps,mapDispatchToProps)(Posts);
+
+    // return <Context.Consumer>
+    //     {store => {
+    //         let state = store.getState()
+    //
+    //         let dispatch = store.dispatch.bind(store)
+    //
+    //         let AddPost = () => {
+    //             dispatch(AddPostActionCreator())
+    //         }
+    //
+    //         let NewPostText = (text) => {
+    //             dispatch(NewPostTextActionCreator(text))
+    //         }
+    //
+    //         return (
+    //             <Posts
+    //                 Posts={state.ProfilePage.Posts}
+    //                 AddPost={AddPost}
+    //                 NewPostText={NewPostText}
+    //                 PostText={state.ProfilePage.PostText}
+    //             />
+    //         )
+    //     }
+    //     }
+    // </Context.Consumer>
+export default PostsContainer;

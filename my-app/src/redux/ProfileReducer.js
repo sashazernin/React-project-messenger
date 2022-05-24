@@ -10,36 +10,35 @@ let InitialState = {
             {id: "5", message: "...", likes: "0"},
             {id: "6", message: "...", likes: "10"}
         ],
-        PostText: ''
+        PostText: 'Текст Поста '
 }
 
-const ProfileReducer = (State = InitialState, Action) => {
-    switch (Action.type) {
-        case
-        AddPost:
-            let Post = {
-                id: "1",
-                message: State.PostText,
-                likes: "0"
+const ProfileReducer = (state = InitialState, action) => {
+    switch (action.type) {
+        case AddPost: {
+            return{
+                ...state,
+                Posts: [...state.Posts, {id: "1", message: state.PostText, likes: "0"}],
+                PostText: ""
             }
-            State.Posts.push(Post)
-            State.PostText = "";
-            break;
-        case
-        PostText:
-            State.PostText = Action.text;
-            break;
+        }
+        case PostText: {
+            return {
+                ...state,
+                PostText: action.text
+            }
+        }
+        default: return state
     }
-    return State
 }
 
-export const AddPostActionCreator = () => {
+export const AddPostCreator = () => {
     return{
         type: AddPost
     }
 }
 
-export const NewPostTextActionCreator = (text) => {
+export const NewPostTextCreator = (text) => {
     return{
         type:PostText,text:text
     }
