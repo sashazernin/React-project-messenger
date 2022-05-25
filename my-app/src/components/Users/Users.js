@@ -1,27 +1,26 @@
 import React from "react";
 import c from "./Users.module.css";
+import * as axios from "axios";
+import userImg from "../../imgs/user-img.png"
 
 const Users = (props) => {
-
-    if(props.users.length === 0){
-        props.setUsers(
-            [
-                {id: 1, followed: true, name: "Dmitry", status: "Kot", country: "Belarus", city: "Minsk"},
-                {id: 2, followed: false, name: "Sasha", status: "what?", country: "Belarus", city: "Minsk"},
-                {id: 3, followed: true, name: "Danil", status: "Dota?", country: "Belarus", city: "Minsk"},
-                {id: 4, followed: false, name: "Timofey", status: "MEME", country: "Belarus", city: "Minsk"}
-            ]
-        )
+let getUsers = () => {
+    if (props.users.length === 0) {
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            props.setUsers(response.data.items)
+        })
     }
+}
 
     return (
     <div>
+        <button onClick={getUsers}>Get Users</button>
         {
             props.users.map(u => <div className={c.content}>
                     <div className={c.mainInfo}>
                         <div className={c.mainInfo__item}>
                             <img className={c.avatar}
-                                 src="https://e7.pngegg.com/pngimages/744/742/png-clipart-dog-breed-wolfdog-illustration-exquisite-hand-painted-dogs-avatar-watercolor-painting-heroes.png"/>
+                                 src={u.photos.small != null ? u.photos.small : userImg}/>
                             {u.followed ?
                                 <button onClick={() => {props.followUser(u.id)}}>Follow</button> :
                                 <button onClick={() => {props.unfollowUser(u.id)}}>Unfollow</button>

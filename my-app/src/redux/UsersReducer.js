@@ -39,10 +39,9 @@ const UsersReducer = (state = InitialState, action) => {
             }
         }
         case setUsers: {
-            alert('l')
             return{
                 ...state,
-                Users: [...state.Users, ...action.users]
+                Users: [...action.users]
             }
         }
         default: return state
