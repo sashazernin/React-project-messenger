@@ -1,10 +1,14 @@
 let follow = "follow"
 let unfollow = "unfollow"
 let setUsers = "setUsers"
+let setCurrentPage = "setCurrentPage"
+let setTotalUsersCount = "setTotalUsersCount"
 
 let InitialState = {
-    Users: [
-    ]
+    Users: [],
+    pageSize:10,
+    totalUsersCount: 0,
+    currentPage: 1
 }
 
 const UsersReducer = (state = InitialState, action) => {
@@ -34,17 +38,28 @@ const UsersReducer = (state = InitialState, action) => {
                     else{
                         return u
                     }
-
                 })
             }
         }
         case setUsers: {
             return{
                 ...state,
-                Users: [...action.users]
+                Users: [...state.Users,...action.users]
             }
         }
-        default: return state
+        case setCurrentPage: {
+            return{
+                ...state,
+                currentPage: action.currentPage
+            }
+        }
+        case setTotalUsersCount: {
+            return{
+                ...state,
+                totalUsersCount: action.totalUsersCount
+            }
+        }
+        default : return state
     }
 }
 
@@ -66,6 +81,20 @@ export const setUsersAC = (users) => {
     return{
         type: setUsers,
         users
+    }
+}
+
+export const setCurrentPageAC = (currentPage) => {
+    return{
+        type: setCurrentPage,
+        currentPage
+    }
+}
+
+export const setTotalUsersCountAC = (totalUsersCount) => {
+    return {
+        type: setTotalUsersCount,
+        totalUsersCount
     }
 }
 

@@ -18,5 +18,7 @@
     flex-direction: column;
 }
 span{
-    color: white;
+}
+.selectedPage{
+    color: gold;
 }
