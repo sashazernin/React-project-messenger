@@ -1,28 +1,28 @@
 import c from './Profileinfo.module.css';
 import React from 'react';
-const Profileinfo = () => {
+const ProfileInfo = (props) => {
   return(
       <div className={c.content}>
         <div className={c.info}>
           <div>
-            <img className={c.logo} src='https://mobimg.b-cdn.net/v3/fetch/4d/4d2390706bd5bb1daffe41e00f89d640.jpeg'></img>
+            <img className={c.logo} src={props.profile.photos.large}></img>
           </div>
           <div className={c.info__text_block}>
             <span className={c.info__text_block__name}>
-              Dmitry K.
+              {props.profile.fullName}
             </span>
             <span>
-              Date of Birth: 2 jan
+              None
             </span>
             <span>
-              Education: BSU
+              None
             </span>
             <span>
-              description: Damir loh
+              {props.profile.aboutMe}
             </span>
           </div>
         </div>
       </div>
   )
 }
-export default Profileinfo;
+export default ProfileInfo;

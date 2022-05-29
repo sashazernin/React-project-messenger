@@ -6,11 +6,11 @@ const Posts = (props) => {
     let PostsCount = props.Posts.map(p => <Post key={p.id} text={p.message} likes={p.likes}/>)
 
     let AddPost = () => {
-        props.AddPost()
+        props.addPost()
     }
 
     let NewPostText = (e) => {
-        props.NewPostText(e.target.value)
+        props.postText(e.target.value)
     }
 
     return (

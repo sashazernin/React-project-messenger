@@ -1,25 +1,26 @@
-let follow = "follow"
-let unfollow = "unfollow"
-let setUsers = "setUsers"
-let setCurrentPage = "setCurrentPage"
-let setTotalUsersCount = "setTotalUsersCount"
+let follow_And_Unfollow = 'followAndUnfollow'
+let set_Users = 'set_Users'
+let set_Current_Page = 'set_Current_Page'
+let set_Total_Users_Count = 'set_Total_Users_Count'
+let show_Or_Hide_Loading = 'show_Or_Hide_Loading'
 
 let InitialState = {
     Users: [],
     pageSize:10,
     totalUsersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    loading: false
 }
 
 const UsersReducer = (state = InitialState, action) => {
 
     switch (action.type){
-        case follow: {
+        case follow_And_Unfollow: {
             return {
                 ...state,
                 Users: state.Users.map(u => {
                     if (u.id === action.userId){
-                        return {...u, followed: false}
+                        return {...u, followed: action.followed}
                     }
                     else{
                         return u
@@ -27,74 +28,67 @@ const UsersReducer = (state = InitialState, action) => {
                 })
             }
         }
-        case unfollow: {
-
-            return {
-                ...state,
-                Users: state.Users.map(u => {
-                    if (u.id === action.userId){
-                        return {...u, followed: true}
-                    }
-                    else{
-                        return u
-                    }
-                })
-            }
-        }
-        case setUsers: {
+        case set_Users: {
             return{
                 ...state,
                 Users: [...state.Users,...action.users]
             }
         }
-        case setCurrentPage: {
+        case set_Current_Page: {
             return{
                 ...state,
                 currentPage: action.currentPage
             }
         }
-        case setTotalUsersCount: {
+        case set_Total_Users_Count: {
             return{
                 ...state,
                 totalUsersCount: action.totalUsersCount
+            }
+        }
+        case show_Or_Hide_Loading:{
+            return{
+                ...state,
+                loading: action.meaning
             }
         }
         default : return state
     }
 }
 
-export const followAC = (userId) => {
+export const followAndUnfollow = (userId,followed) => {
     return {
-        type: follow,
-        userId
+        type: follow_And_Unfollow,
+        userId,
+        followed
     }
 }
 
-export const unfollowAC = (userId) => {
-    return {
-        type: unfollow,
-        userId
-    }
-}
-
-export const setUsersAC = (users) => {
+export const setUsers = (users) => {
     return{
-        type: setUsers,
+        type: set_Users,
         users
     }
 }
 
-export const setCurrentPageAC = (currentPage) => {
+export const setCurrentPage = (currentPage) => {
     return{
-        type: setCurrentPage,
+        type: set_Current_Page,
         currentPage
     }
 }
 
-export const setTotalUsersCountAC = (totalUsersCount) => {
+export const setTotalUsersCount = (totalUsersCount) => {
     return {
-        type: setTotalUsersCount,
+        type: set_Total_Users_Count,
         totalUsersCount
+    }
+}
+
+export const setLoadingMeaning = (meaning) => {
+    return {
+        type: show_Or_Hide_Loading,
+        meaning
     }
 }
 

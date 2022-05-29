@@ -16,7 +16,7 @@ const Messages = (props) => {
 
     return (
         <div>
-            {MessagesCount}
+            {props.Messages.map(m => <Message key={m.id} message={m.message}/>)}
             <textarea placeholder={"Введите сообщение"} value={props.MessageText} onChange={MessageTextChange}/>
             <button onClick={SendMessage}>Send</button>
         </div>
