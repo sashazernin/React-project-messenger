@@ -1,7 +1,16 @@
-.header{
+.header {
     grid-area: h;
-    background-color:black;
-  }
-  .header img{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+}
+
+.header img {
     width: 60px;
-  }
+}
+
+.loginBlock {
+    margin-right: 20px;
+    color: white;
+}

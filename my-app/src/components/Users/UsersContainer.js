@@ -13,13 +13,14 @@ import {
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.setLoadingMeaning(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
-            this.props.setLoadingMeaning(false)
-            this.props.setUsers(response.data.items)
-            this.props.setTotalUsersCount(response.data.totalCount)
-            this.props.setCurrentPage(this.props.currentPage + 1)
-        })
+
+            this.props.setLoadingMeaning(true)
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+                    this.props.setLoadingMeaning(false)
+                    this.props.setUsers(response.data.items)
+                    this.props.setTotalUsersCount(response.data.totalCount)
+                    this.props.setCurrentPage(this.props.currentPage + 1)
+            })
     }
 
     showMoreUsers = () => {
@@ -34,12 +35,13 @@ class UsersContainer extends React.Component {
 
     render() {
         return (<>
-                {this.props.loading ? <Preloader/> : null}
-                <Users
-                    showMoreUsers={this.showMoreUsers}
-                    users={this.props.users}
-                    followAndUnfollow={this.props.followAndUnfollow}
-                />
+                {this.props.loading ? <Preloader/> :
+                    <Users
+                        showMoreUsers={this.showMoreUsers}
+                        users={this.props.users}
+                        followAndUnfollow={this.props.followAndUnfollow}
+                    />
+                }
             </>
 
         )
