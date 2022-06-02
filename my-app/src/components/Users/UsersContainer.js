@@ -6,41 +6,43 @@ import Preloader from "../common/Preloader/Preloader";
 import {
     followAndUnfollow,
     setCurrentPage,
+    setIsFollowingProgress,
     setLoadingMeaning,
     setTotalUsersCount,
     setUsers
 } from "../../redux/UsersReducer";
+import {getUsers} from "../../redux/api";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-
-            this.props.setLoadingMeaning(true)
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
-                    this.props.setLoadingMeaning(false)
-                    this.props.setUsers(response.data.items)
-                    this.props.setTotalUsersCount(response.data.totalCount)
-                    this.props.setCurrentPage(this.props.currentPage + 1)
-            })
+        this.props.setLoadingMeaning(true)
+        getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+            this.props.setLoadingMeaning(false)
+            this.props.setUsers(data.items)
+            this.props.setTotalUsersCount(data.totalCount)
+            this.props.setCurrentPage(this.props.currentPage + 1)
+        })
     }
 
     showMoreUsers = () => {
         this.props.setLoadingMeaning(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+        getUsers(this.props.currentPage, this.props.pageSize).then(data => {
             this.props.setLoadingMeaning(false)
-            this.props.setUsers(response.data.items)
+            this.props.setUsers(data.items)
             this.props.setCurrentPage(this.props.currentPage + 1)
         })
-
     }
 
     render() {
         return (<>
-                {this.props.loading ? <Preloader/> :
-                    <Users
-                        showMoreUsers={this.showMoreUsers}
-                        users={this.props.users}
-                        followAndUnfollow={this.props.followAndUnfollow}
-                    />
+                <Users
+                    showMoreUsers={this.showMoreUsers}
+                    users={this.props.users}
+                    followAndUnfollow={this.props.followAndUnfollow}
+                    setIsFollowingProgress={this.props.setIsFollowingProgress}
+                    isFollowingProgress={this.props.isFollowingProgress}
+                />
+                {this.props.loading ? <Preloader/> : null
                 }
             </>
 
@@ -54,7 +56,8 @@ let mapStateToProps = (state) => {
         pageSize: state.UsersPage.pageSize,
         totalUsersCount: state.UsersPage.totalUsersCount,
         currentPage: state.UsersPage.currentPage,
-        loading: state.UsersPage.loading
+        loading: state.UsersPage.loading,
+        isFollowingProgress: state.UsersPage.isFollowingProgress
     }
 }
 
@@ -64,7 +67,8 @@ let mapDispatchToProps =
         setCurrentPage,
         setLoadingMeaning,
         setTotalUsersCount,
-        setUsers
+        setUsers,
+        setIsFollowingProgress
     }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)

@@ -2,6 +2,8 @@ import React from "react";
 import c from "./Users.module.css";
 import userImg from "../../imgs/user-img.png"
 import {NavLink} from "react-router-dom";
+import axios from "axios";
+import {follow, unfollow} from "../../redux/api";
 
 let Users = (props) => {
     return (
@@ -17,9 +19,30 @@ let Users = (props) => {
                                          src={u.photos.small != null ? u.photos.small : userImg}
                                     />
                                 </NavLink>
-                                <button onClick={() => {
-                                    props.followAndUnfollow(u.id, !u.followed)
-                                }}>{u.followed ? 'Unfollow' : 'Follow'}
+                                <button disabled={props.isFollowingProgress.some(id => id === u.id)} onClick={() => {
+                                        if (u.followed) {
+                                            props.setIsFollowingProgress(true,u.id)
+
+                                            unfollow(u.id).then(
+                                                data => {
+                                                    if (data.resultCode === 0) {
+                                                        props.followAndUnfollow(u.id, !u.followed)
+                                                    }
+                                                    props.setIsFollowingProgress(false,u.id)
+                                                }
+                                            )
+                                        } else {
+                                            props.setIsFollowingProgress(true,u.id)
+                                            follow(u.id).then(
+                                                data => {
+                                                    if (data.resultCode === 0) {
+                                                        props.followAndUnfollow(u.id, !u.followed)
+                                                    }
+                                                    props.setIsFollowingProgress(false,u.id)
+                                                }
+                                            )
+                                        }
+                                }}> {u.followed ? 'Unfollow' : 'Follow'}
                                 </button>
                             </div>
                             <div className={c.mainInfo__item}>

@@ -3,17 +3,18 @@ let set_Users = 'set_Users'
 let set_Current_Page = 'set_Current_Page'
 let set_Total_Users_Count = 'set_Total_Users_Count'
 let show_Or_Hide_Loading = 'show_Or_Hide_Loading'
+let isFollowingProgress = 'toggleIsFollowingProgress'
 
 let InitialState = {
     Users: [],
     pageSize:10,
     totalUsersCount: 0,
     currentPage: 1,
-    loading: false
+    loading: false,
+    isFollowingProgress: []
 }
 
 const UsersReducer = (state = InitialState, action) => {
-
     switch (action.type){
         case follow_And_Unfollow: {
             return {
@@ -50,6 +51,14 @@ const UsersReducer = (state = InitialState, action) => {
             return{
                 ...state,
                 loading: action.meaning
+            }
+        }
+        case isFollowingProgress:{
+            return{
+                ...state,
+                isFollowingProgress: action.progressMeaning ?
+                    [...state.isFollowingProgress, action.userId] :
+                    [...state.isFollowingProgress.filter(id => id != action.userId)]
             }
         }
         default : return state
@@ -89,6 +98,14 @@ export const setLoadingMeaning = (meaning) => {
     return {
         type: show_Or_Hide_Loading,
         meaning
+    }
+}
+
+export const setIsFollowingProgress = (progressMeaning,userId) => {
+    return {
+        type: isFollowingProgress,
+        progressMeaning,
+        userId
     }
 }
 

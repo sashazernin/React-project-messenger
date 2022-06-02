@@ -8,6 +8,7 @@ import {
         useNavigate,
         useParams,
 } from "react-router-dom";
+import {getProfileInfo} from "../../redux/api";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
@@ -17,9 +18,9 @@ class ProfileContainer extends React.Component {
         if(!userId){
             userId = this.props.userId
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then(
-            response => {
-                this.props.setUserProfile(response.data)
+        getProfileInfo(userId).then(
+            data => {
+                this.props.setUserProfile(data)
             }
         )
     }

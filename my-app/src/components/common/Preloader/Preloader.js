@@ -3,11 +3,9 @@ import preloader from "../../../imgs/preloader.gif";
 import c from "./Preloader.module.css"
 
 let Preloader = (props) => {
-    return(
+    return (
         <div className={c.content}>
-            <div className={c.background}>
-                <img className={c.img} src={preloader}/>
-            </div>
+            <img className={c.img} src={preloader}/>
         </div>
     )
 }
