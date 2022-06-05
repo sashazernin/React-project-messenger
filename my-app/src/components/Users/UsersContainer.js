@@ -4,7 +4,7 @@ import Users from './Users';
 import * as axios from 'axios'
 import Preloader from "../common/Preloader/Preloader";
 import {
-    followAndUnfollow,
+    followAndUnfollow, getUsersTC,
     setCurrentPage,
     setIsFollowingProgress,
     setLoadingMeaning,
@@ -15,22 +15,18 @@ import {getUsers} from "../../redux/api";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.setLoadingMeaning(true)
-        getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-            this.props.setLoadingMeaning(false)
-            this.props.setUsers(data.items)
-            this.props.setTotalUsersCount(data.totalCount)
-            this.props.setCurrentPage(this.props.currentPage + 1)
-        })
+        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
+        // this.props.setLoadingMeaning(true)
+        // getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+        //     this.props.setLoadingMeaning(false)
+        //     this.props.setUsers(data.items)
+        //     this.props.setTotalUsersCount(data.totalCount)
+        //     this.props.setCurrentPage(this.props.currentPage + 1)
+        // })
     }
 
     showMoreUsers = () => {
-        this.props.setLoadingMeaning(true)
-        getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-            this.props.setLoadingMeaning(false)
-            this.props.setUsers(data.items)
-            this.props.setCurrentPage(this.props.currentPage + 1)
-        })
+        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
     }
 
     render() {
@@ -68,7 +64,8 @@ let mapDispatchToProps =
         setLoadingMeaning,
         setTotalUsersCount,
         setUsers,
-        setIsFollowingProgress
+        setIsFollowingProgress,
+        getUsersTC
     }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)

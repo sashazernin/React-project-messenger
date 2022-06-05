@@ -1,3 +1,5 @@
+import {getUsers} from "./api";
+
 let follow_And_Unfollow = 'followAndUnfollow'
 let set_Users = 'set_Users'
 let set_Current_Page = 'set_Current_Page'
@@ -106,6 +108,18 @@ export const setIsFollowingProgress = (progressMeaning,userId) => {
         type: isFollowingProgress,
         progressMeaning,
         userId
+    }
+}
+
+export const getUsersTC = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(setLoadingMeaning(true))
+        getUsers(currentPage, pageSize).then(data => {
+            dispatch(setLoadingMeaning(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+            dispatch(setCurrentPage(currentPage + 1))
+        })
     }
 }
 

@@ -20,28 +20,28 @@ let Users = (props) => {
                                     />
                                 </NavLink>
                                 <button disabled={props.isFollowingProgress.some(id => id === u.id)} onClick={() => {
-                                        if (u.followed) {
-                                            props.setIsFollowingProgress(true,u.id)
+                                    if (u.followed) {
+                                        props.setIsFollowingProgress(true, u.id)
 
-                                            unfollow(u.id).then(
-                                                data => {
-                                                    if (data.resultCode === 0) {
-                                                        props.followAndUnfollow(u.id, !u.followed)
-                                                    }
-                                                    props.setIsFollowingProgress(false,u.id)
+                                        unfollow(u.id).then(
+                                            data => {
+                                                if (data.resultCode === 0) {
+                                                    props.followAndUnfollow(u.id, !u.followed)
                                                 }
-                                            )
-                                        } else {
-                                            props.setIsFollowingProgress(true,u.id)
-                                            follow(u.id).then(
-                                                data => {
-                                                    if (data.resultCode === 0) {
-                                                        props.followAndUnfollow(u.id, !u.followed)
-                                                    }
-                                                    props.setIsFollowingProgress(false,u.id)
+                                                props.setIsFollowingProgress(false, u.id)
+                                            }
+                                        )
+                                    } else {
+                                        props.setIsFollowingProgress(true, u.id)
+                                        follow(u.id).then(
+                                            data => {
+                                                if (data.resultCode === 0) {
+                                                    props.followAndUnfollow(u.id, !u.followed)
                                                 }
-                                            )
-                                        }
+                                                props.setIsFollowingProgress(false, u.id)
+                                            }
+                                        )
+                                    }
                                 }}> {u.followed ? 'Unfollow' : 'Follow'}
                                 </button>
                             </div>
