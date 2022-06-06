@@ -2,32 +2,35 @@ import React from 'react';
 import Profile from './Profile';
 import * as axios from 'axios'
 import {connect} from "react-redux";
-import {setUserProfile} from "../../redux/ProfileReducer";
+import {getProfileInfoTC, setUserProfile} from "../../redux/ProfileReducer";
 import {
+    Navigate,
     useLocation,
-        useNavigate,
-        useParams,
+    useNavigate,
+    useParams,
 } from "react-router-dom";
-import {getProfileInfo} from "../../redux/api";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
+        if(this.props.isAuth) {
+            let userId = this.props.router.params.userId
 
-        let userId = this.props.router.params.userId
-
-        if(!userId){
-            userId = this.props.userId
-        }
-        getProfileInfo(userId).then(
-            data => {
-                this.props.setUserProfile(data)
+            if (!userId) {
+                userId = this.props.userId
             }
-        )
+            this.props.getProfileInfoTC(userId)
+            // getProfileInfo(userId).then(
+            //     data => {
+            //         this.props.setUserProfile(data)
+            //     }
+            // )
+        }
     }
     render() {
+        if(!this.props.isAuth){ return (<Navigate to={"/Login"}/>)}
         return (
             <div>
-                <Profile {...this.props} profile = {this.props.profile} />
+                <Profile profile = {this.props.profile} isAuth = {this.props.isAuth}/>
             </div>
         )
     }
@@ -35,12 +38,14 @@ class ProfileContainer extends React.Component {
 
 const mapStateToProps = (state) => ({
         userId: state.auth.userId,
+        isAuth: state.auth.isAuth,
         profile: state.profilePage.profile
     }
 )
 
 const mapDispatchToProps = {
-    setUserProfile
+    setUserProfile,
+    getProfileInfoTC
 }
 
 function withRouter(ProfileContainer) {

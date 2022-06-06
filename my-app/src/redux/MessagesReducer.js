@@ -1,5 +1,5 @@
-const SendMessage = 'SendMessage'
-const MessageText = 'MessageText'
+const Send_Message = 'Send_Message'
+const Message_Text = 'Message_Text'
 
 let InitialState = {
     Messages: [
@@ -14,14 +14,14 @@ let InitialState = {
 
 const MessagesReducer = (state = InitialState, action) => {
     switch (action.type) {
-        case SendMessage: {
+        case Send_Message: {
             return {
                 ...state,
                 Messages: [...state.Messages, {id: '1', message: state.MessageText}],
                 MessageText: ""
             }
         }
-        case MessageText: {
+        case Message_Text: {
             return {
                 ...state,
                 MessageText: action.text
@@ -31,15 +31,15 @@ const MessagesReducer = (state = InitialState, action) => {
     }
 }
 
-export const SendMessageCreator = () => {
+export const SendMessage = () => {
     return{
-        type:SendMessage
+        type:Send_Message
     }
 }
 
-export const MessageTextChangeCreator = (text) => {
+export const MessageTextChange = (text) => {
     return{
-        type:MessageText,text: text
+        type:Message_Text,text: text
     }
 }
 

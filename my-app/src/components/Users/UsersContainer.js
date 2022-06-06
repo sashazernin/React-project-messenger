@@ -4,25 +4,25 @@ import Users from './Users';
 import * as axios from 'axios'
 import Preloader from "../common/Preloader/Preloader";
 import {
-    followAndUnfollow, getUsersTC,
-    setCurrentPage,
+    followAndUnfollow,
+    followAndUnfollowTC,
+    getUsersTC,
     setIsFollowingProgress,
-    setLoadingMeaning,
-    setTotalUsersCount,
-    setUsers
 } from "../../redux/UsersReducer";
-import {getUsers} from "../../redux/api";
+import {Navigate} from "react-router-dom";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
-        // this.props.setLoadingMeaning(true)
-        // getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-        //     this.props.setLoadingMeaning(false)
-        //     this.props.setUsers(data.items)
-        //     this.props.setTotalUsersCount(data.totalCount)
-        //     this.props.setCurrentPage(this.props.currentPage + 1)
-        // })
+        if(this.props.isAuth) {
+            this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
+            // this.props.setLoadingMeaning(true)
+            // getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+            //     this.props.setLoadingMeaning(false)
+            //     this.props.setUsers(data.items)
+            //     this.props.setTotalUsersCount(data.totalCount)
+            //     this.props.setCurrentPage(this.props.currentPage + 1)
+            // })
+        }
     }
 
     showMoreUsers = () => {
@@ -30,12 +30,12 @@ class UsersContainer extends React.Component {
     }
 
     render() {
+        if(!this.props.isAuth){ return (<Navigate to={"/Login"}/>)}
         return (<>
                 <Users
                     showMoreUsers={this.showMoreUsers}
                     users={this.props.users}
-                    followAndUnfollow={this.props.followAndUnfollow}
-                    setIsFollowingProgress={this.props.setIsFollowingProgress}
+                    followAndUnfollow={this.props.followAndUnfollowTC}
                     isFollowingProgress={this.props.isFollowingProgress}
                 />
                 {this.props.loading ? <Preloader/> : null
@@ -48,6 +48,7 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
+        isAuth: state.auth.isAuth,
         users: state.UsersPage.Users,
         pageSize: state.UsersPage.pageSize,
         totalUsersCount: state.UsersPage.totalUsersCount,
@@ -60,12 +61,9 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps =
     {
         followAndUnfollow,
-        setCurrentPage,
-        setLoadingMeaning,
-        setTotalUsersCount,
-        setUsers,
         setIsFollowingProgress,
-        getUsersTC
+        getUsersTC,
+        followAndUnfollowTC
     }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)

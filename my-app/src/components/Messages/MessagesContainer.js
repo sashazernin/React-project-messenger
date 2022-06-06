@@ -1,24 +1,19 @@
 import React, {createRef} from 'react';
-import {MessageTextChangeCreator, SendMessageCreator} from "../../redux/MessagesReducer";
+import {MessageTextChange, SendMessage} from "../../redux/MessagesReducer";
 import Messages from "./Messages";
 import {connect} from "react-redux";
 
 let mapStateToProps = (state) => {
     return{
         Messages: state.MessagesPage.Messages,
-        MessageText: state.MessagesPage.MessageText
+        MessageText: state.MessagesPage.MessageText,
+        isAuth: state.auth.isAuth
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return{
-        SendMessage: () => {
-            dispatch(SendMessageCreator())
-        },
-        MessageTextChange: (text) => {
-            dispatch(MessageTextChangeCreator(text))
-        }
-    }
+let mapDispatchToProps = {
+    SendMessage,
+    MessageTextChange
 }
 
 const SMessagesContainer = connect(mapStateToProps,mapDispatchToProps)(Messages);

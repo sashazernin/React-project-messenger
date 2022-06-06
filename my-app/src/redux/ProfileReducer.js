@@ -1,3 +1,5 @@
+import {getProfileInfo} from "./api";
+
 const post_Text = 'post_Text'
 const add_Post = 'add_Post'
 const Set_User_Profile = 'Set_Users_Profile'
@@ -57,6 +59,16 @@ export const setUserProfile = (profile) => {
     return {
         type: Set_User_Profile,
         profile
+    }
+}
+
+export const getProfileInfoTC = (id) => {
+    return (dispatch) => {
+        getProfileInfo(id).then(
+            data => {
+                dispatch(setUserProfile(data))
+            }
+        )
     }
 }
 

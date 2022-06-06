@@ -1,4 +1,4 @@
-import {getUsers} from "./api";
+import {follow, getUsers, unfollow} from "./api";
 
 let follow_And_Unfollow = 'followAndUnfollow'
 let set_Users = 'set_Users'
@@ -9,7 +9,7 @@ let isFollowingProgress = 'toggleIsFollowingProgress'
 
 let InitialState = {
     Users: [],
-    pageSize:10,
+    pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
     loading: false,
@@ -17,57 +17,57 @@ let InitialState = {
 }
 
 const UsersReducer = (state = InitialState, action) => {
-    switch (action.type){
+    switch (action.type) {
         case follow_And_Unfollow: {
             return {
                 ...state,
                 Users: state.Users.map(u => {
-                    if (u.id === action.userId){
+                    if (u.id === action.userId) {
                         return {...u, followed: action.followed}
-                    }
-                    else{
+                    } else {
                         return u
                     }
                 })
             }
         }
         case set_Users: {
-            return{
+            return {
                 ...state,
-                Users: [...state.Users,...action.users]
+                Users: [...state.Users, ...action.users]
             }
         }
         case set_Current_Page: {
-            return{
+            return {
                 ...state,
                 currentPage: action.currentPage
             }
         }
         case set_Total_Users_Count: {
-            return{
+            return {
                 ...state,
                 totalUsersCount: action.totalUsersCount
             }
         }
-        case show_Or_Hide_Loading:{
-            return{
+        case show_Or_Hide_Loading: {
+            return {
                 ...state,
                 loading: action.meaning
             }
         }
-        case isFollowingProgress:{
-            return{
+        case isFollowingProgress: {
+            return {
                 ...state,
                 isFollowingProgress: action.progressMeaning ?
                     [...state.isFollowingProgress, action.userId] :
                     [...state.isFollowingProgress.filter(id => id != action.userId)]
             }
         }
-        default : return state
+        default :
+            return state
     }
 }
 
-export const followAndUnfollow = (userId,followed) => {
+export const followAndUnfollow = (userId, followed) => {
     return {
         type: follow_And_Unfollow,
         userId,
@@ -76,14 +76,14 @@ export const followAndUnfollow = (userId,followed) => {
 }
 
 export const setUsers = (users) => {
-    return{
+    return {
         type: set_Users,
         users
     }
 }
 
 export const setCurrentPage = (currentPage) => {
-    return{
+    return {
         type: set_Current_Page,
         currentPage
     }
@@ -103,7 +103,7 @@ export const setLoadingMeaning = (meaning) => {
     }
 }
 
-export const setIsFollowingProgress = (progressMeaning,userId) => {
+export const setIsFollowingProgress = (progressMeaning, userId) => {
     return {
         type: isFollowingProgress,
         progressMeaning,
@@ -120,6 +120,34 @@ export const getUsersTC = (currentPage, pageSize) => {
             dispatch(setTotalUsersCount(data.totalCount))
             dispatch(setCurrentPage(currentPage + 1))
         })
+    }
+}
+
+export const followAndUnfollowTC = (followed, id) => {
+    if (followed) {
+        return (dispatch) => {
+            dispatch(setIsFollowingProgress(true, id))
+            unfollow(id).then(
+                data => {
+                    if (data.resultCode === 0) {
+                        dispatch(followAndUnfollow(id, !followed))
+                    }
+                    dispatch(setIsFollowingProgress(false, id))
+                }
+            )
+        }
+    } else {
+        return (dispatch) => {
+            dispatch(setIsFollowingProgress(true, id))
+            follow(id).then(
+                data => {
+                    if (data.resultCode === 0) {
+                        dispatch(followAndUnfollow(id, !followed))
+                    }
+                    dispatch(setIsFollowingProgress(false, id))
+                }
+            )
+        }
     }
 }
 

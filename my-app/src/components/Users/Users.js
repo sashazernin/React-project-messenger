@@ -4,6 +4,7 @@ import userImg from "../../imgs/user-img.png"
 import {NavLink} from "react-router-dom";
 import axios from "axios";
 import {follow, unfollow} from "../../redux/api";
+import {followAndUnfollow} from "../../redux/UsersReducer";
 
 let Users = (props) => {
     return (
@@ -20,28 +21,7 @@ let Users = (props) => {
                                     />
                                 </NavLink>
                                 <button disabled={props.isFollowingProgress.some(id => id === u.id)} onClick={() => {
-                                    if (u.followed) {
-                                        props.setIsFollowingProgress(true, u.id)
-
-                                        unfollow(u.id).then(
-                                            data => {
-                                                if (data.resultCode === 0) {
-                                                    props.followAndUnfollow(u.id, !u.followed)
-                                                }
-                                                props.setIsFollowingProgress(false, u.id)
-                                            }
-                                        )
-                                    } else {
-                                        props.setIsFollowingProgress(true, u.id)
-                                        follow(u.id).then(
-                                            data => {
-                                                if (data.resultCode === 0) {
-                                                    props.followAndUnfollow(u.id, !u.followed)
-                                                }
-                                                props.setIsFollowingProgress(false, u.id)
-                                            }
-                                        )
-                                    }
+                                    props.followAndUnfollow(u.followed,u.id)
                                 }}> {u.followed ? 'Unfollow' : 'Follow'}
                                 </button>
                             </div>
