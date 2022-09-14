@@ -7,3 +7,15 @@
     width: 50px;
     border-radius: 50%;
 }
+.sendMessage{
+    padding: 5px 10px;
+    margin-left: 20px;
+    background-color: black;
+    color: white;
+}
+.sendMessage:hover{
+    background-color: #414141;
+}
+.sendMessageContent{
+    display: flex;
+}

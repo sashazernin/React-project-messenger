@@ -1,3 +1,5 @@
+import message from "../components/Messages/Message/Message";
+
 const Send_Message = 'Send_Message'
 const Message_Text = 'Message_Text'
 
@@ -9,16 +11,23 @@ let InitialState = {
         {id:"4",message:"a ti i est damir"},
         {id:"5",message:"ti loh"},
     ],
-        MessageText: "Текст Сообщения"
+        MessageText: ""
 }
 
 const MessagesReducer = (state = InitialState, action) => {
     switch (action.type) {
         case Send_Message: {
-            return {
-                ...state,
-                Messages: [...state.Messages, {id: '1', message: state.MessageText}],
-                MessageText: ""
+            let message = state.MessageText.trim()
+            if(message.length) {
+                return {
+                    ...state,
+                    Messages: [...state.Messages, {id: '1', message: state.MessageText}],
+                    MessageText: ""
+                }
+            }else{
+                return{
+                    ...state
+                }
             }
         }
         case Message_Text: {

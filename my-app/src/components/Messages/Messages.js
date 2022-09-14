@@ -1,6 +1,5 @@
 import c from './Messages.module.css';
 import React, {createRef} from 'react';
-import {NavLink} from "react-router-dom";
 import Message from "./Message/Message";
 
 const Messages = (props) => {
@@ -17,8 +16,10 @@ const Messages = (props) => {
     return (
         <div>
             {props.Messages.map(m => <Message key={m.id} message={m.message}/>)}
-            <textarea placeholder={"Введите сообщение"} value={props.MessageText} onChange={MessageTextChange}/>
-            <button onClick={SendMessage}>Send</button>
+            <div className={c.sendMessageContent}>
+                <textarea placeholder={"Введите сообщение"} value={props.MessageText} onChange={MessageTextChange}/>
+                <button onClick={SendMessage}  class={c.sendMessage}>Send</button>
+            </div>
         </div>
     )
 }

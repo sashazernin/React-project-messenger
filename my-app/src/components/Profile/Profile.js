@@ -14,7 +14,7 @@ const Profile = (props) => {
         return (
             <div>
                 <ProfileInfo profile={props.profile}/>
-                <PostsContainer/>
+                <PostsContainer img={props.profile.photos.small} />
             </div>
         )
     }

@@ -13,7 +13,7 @@ let InitialState = {
         {id: "5", message: "...", likes: "0"},
         {id: "6", message: "...", likes: "10"}
     ],
-    PostText: 'Текст Поста ',
+    PostText: '',
     profile: null
 }
 

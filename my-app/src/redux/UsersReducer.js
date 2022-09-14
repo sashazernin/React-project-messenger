@@ -1,5 +1,4 @@
 import {follow, getUsers, unfollow} from "./api";
-
 let follow_And_Unfollow = 'followAndUnfollow'
 let set_Users = 'set_Users'
 let set_Current_Page = 'set_Current_Page'
