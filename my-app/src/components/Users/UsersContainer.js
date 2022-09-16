@@ -29,7 +29,6 @@ class UsersContainer extends React.Component {
     }
 
     render() {
-        if(!this.props.isAuth){ return (<Navigate to={"/Login"}/>)}
         return (<>
                 <Users
                     showMoreUsers={this.showMoreUsers}

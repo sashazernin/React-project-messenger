@@ -1,7 +1,12 @@
 import React from 'react';
 import Profile from './Profile';
 import {connect} from "react-redux";
-import {getProfileInfoTC, setUserProfile} from "../../redux/ProfileReducer";
+import {
+    getProfileInfoTC,
+    getProfileStatusTC,
+    setUserProfile,
+    updateProfileStatusTC
+} from "../../redux/ProfileReducer";
 import {
     Navigate,
     useLocation,
@@ -13,25 +18,18 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        if(this.props.isAuth) {
             let userId = this.props.router.params.userId
-
             if (!userId) {
                 userId = this.props.userId
             }
             this.props.getProfileInfoTC(userId)
-            // getProfileInfo(userId).then(
-            //     data => {
-            //         this.props.setUserProfile(data)
-            //     }
-            // )
-        }
+            this.props.getProfileStatusTC(userId);
     }
+
     render() {
-        if(!this.props.isAuth){ return (<Navigate to={"/Login"}/>)}
         return (
             <div>
-                <Profile profile = {this.props.profile} isAuth = {this.props.isAuth}/>
+                <Profile profile = {this.props.profile} status={this.props.status} updateStatus={this.props.updateProfileStatusTC}/>
             </div>
         )
     }
@@ -39,14 +37,16 @@ class ProfileContainer extends React.Component {
 
 const mapStateToProps = (state) => ({
         userId: state.auth.userId,
-        isAuth: state.auth.isAuth,
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        status: state.profilePage.status
     }
 )
 
 const mapDispatchToProps = {
     setUserProfile,
-    getProfileInfoTC
+    getProfileInfoTC,
+    getProfileStatusTC,
+    updateProfileStatusTC,
 }
 
 function withRouter(ProfileContainer) {
@@ -69,5 +69,5 @@ export default compose(
     connect(mapStateToProps,mapDispatchToProps),
     withRouter,
     withAuthRedirect
-)(ProfileContainer)d
+)(ProfileContainer)
 

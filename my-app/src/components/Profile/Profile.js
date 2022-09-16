@@ -13,7 +13,7 @@ const Profile = (props) => {
     } else {
         return (
             <div>
-                <ProfileInfo profile={props.profile}/>
+                <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
                 <PostsContainer img={props.profile.photos.small} />
             </div>
         )

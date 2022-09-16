@@ -1,8 +1,11 @@
 import {getProfileInfo} from "./api";
+import {ProfileAPI} from "./api";
 
 const post_Text = 'post_Text'
 const add_Post = 'add_Post'
 const Set_User_Profile = 'Set_Users_Profile'
+const Get_Status = 'Get_Status'
+const Update_Status = 'Update_Status'
 
 let InitialState = {
     Posts: [
@@ -14,7 +17,8 @@ let InitialState = {
         {id: "6", message: "...", likes: "10"}
     ],
     PostText: '',
-    profile: null
+    profile: null,
+    status: ""
 }
 
 const ProfileReducer = (state = InitialState, action) => {
@@ -38,6 +42,18 @@ const ProfileReducer = (state = InitialState, action) => {
                 profile: action.profile
             }
         }
+        case Get_Status: {
+            return {
+                ...state,
+                status: action.status
+            }
+        }
+        case Update_Status: {
+            return {
+                ...state,
+                status: action.status
+            }
+        }
         default:
             return state
     }
@@ -51,7 +67,8 @@ export const addPost = () => {
 
 export const postText = (text) => {
     return {
-        type: post_Text, text: text
+        type: post_Text,
+        text
     }
 }
 
@@ -62,11 +79,47 @@ export const setUserProfile = (profile) => {
     }
 }
 
+export const getStatus = (status) => {
+    return {
+        type: Get_Status,
+        status
+    }
+}
+
+export const updateStatus = (status) => {
+    return {
+        type: Update_Status,
+        status
+    }
+}
+
 export const getProfileInfoTC = (id) => {
     return (dispatch) => {
         getProfileInfo(id).then(
             data => {
                 dispatch(setUserProfile(data))
+            }
+        )
+    }
+}
+
+export const getProfileStatusTC = (status) => {
+    return (dispatch) => {
+        ProfileAPI.getStatus(status).then(
+            data => {
+                dispatch(getStatus(data))
+            }
+        )
+    }
+}
+
+export const updateProfileStatusTC = (status) => {
+    return (dispatch) => {
+        ProfileAPI.updateStatus(status).then(
+            data => {
+                if(data.resultCode == 0) {
+                    dispatch(updateStatus(status))
+                }
             }
         )
     }

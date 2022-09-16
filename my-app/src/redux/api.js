@@ -30,10 +30,8 @@ export const follow = (id) => {
 }
 
 export const getProfileInfo = (id) => {
-    return instance.get(`profile/${id}`)
-        .then(responce => {
-            return responce.data
-    })
+    console.warn("use the ProfileAPI.getProfileInfo(id)")
+    return ProfileAPI.getProfileInfo(id);
 }
 
 export const getAuth = () => {
@@ -41,4 +39,25 @@ export const getAuth = () => {
         .then(responce => {
             return responce.data
         })
+}
+
+export const ProfileAPI = {
+    getProfileInfo(id) {
+        return instance.get(`profile/${id}`)
+            .then(responce => {
+                return responce.data
+            })
+    },
+    getStatus(id) {
+        return instance.get(`profile/status/${id}`)
+            .then(responce => {
+                return responce.data
+            })
+    },
+    updateStatus(status){
+        return instance.put(`profile/status`,{status:status})
+            .then(responce => {
+                return responce.data
+            })
+    },
 }
