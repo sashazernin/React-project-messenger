@@ -9,6 +9,8 @@ import {
     setIsFollowingProgress,
 } from "../../redux/UsersReducer";
 import {Navigate} from "react-router-dom";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -64,4 +66,9 @@ let mapDispatchToProps =
         followAndUnfollowTC
     }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+
+
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(UsersContainer)

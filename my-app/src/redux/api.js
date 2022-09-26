@@ -35,10 +35,8 @@ export const getProfileInfo = (id) => {
 }
 
 export const getAuth = () => {
-    return instance.get('auth/me')
-        .then(responce => {
-            return responce.data
-        })
+    console.warn('use the AuthApi.getAuth()')
+    return AuthApi.getAuth()
 }
 
 export const ProfileAPI = {
@@ -56,6 +54,34 @@ export const ProfileAPI = {
     },
     updateStatus(status){
         return instance.put(`profile/status`,{status:status})
+            .then(responce => {
+                return responce.data
+            })
+    },
+}
+
+export const AuthApi = {
+    getAuth(){
+        return instance.get('auth/me')
+            .then(responce => {
+                return responce.data
+            })
+    },
+    login(email,password,rememberMe,captcha){
+        console.log(email,password,rememberMe,captcha)
+        return instance.post('auth/login', {email,password,rememberMe,captcha})
+            .then(responce => {
+                return responce.data
+            })
+    },
+    logout(){
+        return instance.delete('auth/login')
+            .then(responce => {
+                return responce.data
+            })
+    },
+    captcha(){
+        return instance.get('/security/get-captcha-url')
             .then(responce => {
                 return responce.data
             })
