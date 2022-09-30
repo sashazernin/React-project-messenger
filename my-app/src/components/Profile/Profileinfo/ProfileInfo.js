@@ -2,6 +2,7 @@ import c from './Profileinfo.module.css';
 import React from 'react';
 import userImg from "../../../imgs/user-img.png"
 import ProfileStatus from "./ProfileStatus"
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 const ProfileInfo = (props) => {
     return (
@@ -25,11 +26,7 @@ const ProfileInfo = (props) => {
                         <span>Description: {props.profile.aboutMe}</span>
                         : null
                     }
-                    {props.status ?
-                        <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
-                        : <ProfileStatus status={''} changeStatus={props.changeStatus}/>
-                    }
-
+                    <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
                 </div>
             </div>
         </div>
