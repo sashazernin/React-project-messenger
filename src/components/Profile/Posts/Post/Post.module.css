@@ -1,0 +1,16 @@
+.Post{
+    border-radius: 10px;
+    background-color: rgb(208, 208, 208);
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+.Post__img{
+    width: 50px;
+    border-radius: 100%;
+    border: solid 1px black;
+}
+.Post_text{
+    padding: 0px 10px;
+}

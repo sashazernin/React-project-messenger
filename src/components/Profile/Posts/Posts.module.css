@@ -1,0 +1,19 @@
+.pf-title{
+}
+.pf__newpost_text{
+  height: 50px;
+  width: 100%;
+}
+.pf__sendbut{
+  display: flex;
+  justify-content: flex-end;
+}
+.pf__sendbut__button{
+  font-size: 20px;
+  background-color: black;
+  color: white;
+  padding: 5px 10px;
+}
+.pf__sendbut__button:hover{
+  cursor: pointer;
+}

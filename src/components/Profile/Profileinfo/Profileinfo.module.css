@@ -1,0 +1,23 @@
+.content {
+    grid-area: c;
+}
+
+.info {
+    display: flex;
+}
+
+.logo {
+    width: 150px;
+    height: 150px;
+}
+
+.info__text_block {
+    margin: 0px 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.info__text_block__name {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
