@@ -1,29 +1,25 @@
 {
   "files": {
-    "main.css": "/React-project-messenger/static/css/main.bd3a0057.chunk.css",
-    "main.js": "/React-project-messenger/static/js/main.539a1341.chunk.js",
-    "main.js.map": "/React-project-messenger/static/js/main.539a1341.chunk.js.map",
-    "runtime-main.js": "/React-project-messenger/static/js/runtime-main.c442aa6f.js",
-    "runtime-main.js.map": "/React-project-messenger/static/js/runtime-main.c442aa6f.js.map",
-    "static/js/2.7c7951e8.chunk.js": "/React-project-messenger/static/js/2.7c7951e8.chunk.js",
-    "static/js/2.7c7951e8.chunk.js.map": "/React-project-messenger/static/js/2.7c7951e8.chunk.js.map",
-    "static/css/3.b86170e0.chunk.css": "/React-project-messenger/static/css/3.b86170e0.chunk.css",
-    "static/js/3.f6dd9843.chunk.js": "/React-project-messenger/static/js/3.f6dd9843.chunk.js",
-    "static/js/3.f6dd9843.chunk.js.map": "/React-project-messenger/static/js/3.f6dd9843.chunk.js.map",
-    "static/js/4.8981d74d.chunk.js": "/React-project-messenger/static/js/4.8981d74d.chunk.js",
-    "static/js/4.8981d74d.chunk.js.map": "/React-project-messenger/static/js/4.8981d74d.chunk.js.map",
+    "main.css": "/React-project-messenger/static/css/main.10ef5d1f.chunk.css",
+    "main.js": "/React-project-messenger/static/js/main.e06e6be7.chunk.js",
+    "main.js.map": "/React-project-messenger/static/js/main.e06e6be7.chunk.js.map",
+    "runtime-main.js": "/React-project-messenger/static/js/runtime-main.5eddd516.js",
+    "runtime-main.js.map": "/React-project-messenger/static/js/runtime-main.5eddd516.js.map",
+    "static/js/2.ea9c9917.chunk.js": "/React-project-messenger/static/js/2.ea9c9917.chunk.js",
+    "static/js/2.ea9c9917.chunk.js.map": "/React-project-messenger/static/js/2.ea9c9917.chunk.js.map",
+    "static/js/3.d084df97.chunk.js": "/React-project-messenger/static/js/3.d084df97.chunk.js",
+    "static/js/3.d084df97.chunk.js.map": "/React-project-messenger/static/js/3.d084df97.chunk.js.map",
     "index.html": "/React-project-messenger/index.html",
-    "static/css/3.b86170e0.chunk.css.map": "/React-project-messenger/static/css/3.b86170e0.chunk.css.map",
-    "static/css/main.bd3a0057.chunk.css.map": "/React-project-messenger/static/css/main.bd3a0057.chunk.css.map",
-    "static/js/2.7c7951e8.chunk.js.LICENSE.txt": "/React-project-messenger/static/js/2.7c7951e8.chunk.js.LICENSE.txt",
+    "static/css/main.10ef5d1f.chunk.css.map": "/React-project-messenger/static/css/main.10ef5d1f.chunk.css.map",
+    "static/js/2.ea9c9917.chunk.js.LICENSE.txt": "/React-project-messenger/static/js/2.ea9c9917.chunk.js.LICENSE.txt",
     "static/media/Logo.74885617.png": "/React-project-messenger/static/media/Logo.74885617.png",
     "static/media/preloader.3fb26d9b.gif": "/React-project-messenger/static/media/preloader.3fb26d9b.gif",
     "static/media/user-img.a70cb991.png": "/React-project-messenger/static/media/user-img.a70cb991.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.c442aa6f.js",
-    "static/js/2.7c7951e8.chunk.js",
-    "static/css/main.bd3a0057.chunk.css",
-    "static/js/main.539a1341.chunk.js"
+    "static/js/runtime-main.5eddd516.js",
+    "static/js/2.ea9c9917.chunk.js",
+    "static/css/main.10ef5d1f.chunk.css",
+    "static/js/main.e06e6be7.chunk.js"
   ]
 }
