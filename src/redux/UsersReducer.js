@@ -1,4 +1,5 @@
 import {follow, getUsers, unfollow} from "./api";
+
 let follow_And_Unfollow = 'followAndUnfollow'
 let set_Users = 'set_Users'
 let set_Current_Page = 'set_Current_Page'
@@ -110,42 +111,33 @@ export const setIsFollowingProgress = (progressMeaning, userId) => {
     }
 }
 
-export const getUsersTC = (currentPage, pageSize) => {
-    return (dispatch) => {
-        dispatch(setLoadingMeaning(true))
-        getUsers(currentPage, pageSize).then(data => {
-            dispatch(setLoadingMeaning(false))
-            dispatch(setUsers(data.items))
-            dispatch(setTotalUsersCount(data.totalCount))
-            dispatch(setCurrentPage(currentPage + 1))
-        })
-    }
+export const getUsersTC = (currentPage, pageSize) => async dispatch => {
+    dispatch(setLoadingMeaning(true))
+    const response = await getUsers(currentPage, pageSize)
+    dispatch(setLoadingMeaning(false))
+    dispatch(setUsers(response.data.items))
+    dispatch(setTotalUsersCount(response.data.totalCount))
+    dispatch(setCurrentPage(currentPage + 1))
 }
 
 export const followAndUnfollowTC = (followed, id) => {
     if (followed) {
-        return (dispatch) => {
+        return async dispatch => {
             dispatch(setIsFollowingProgress(true, id))
-            unfollow(id).then(
-                data => {
-                    if (data.resultCode === 0) {
-                        dispatch(followAndUnfollow(id, !followed))
-                    }
-                    dispatch(setIsFollowingProgress(false, id))
-                }
-            )
+            const response = await unfollow(id)
+            if (response.data.resultCode === 0) {
+                dispatch(followAndUnfollow(id, !followed))
+            }
+            dispatch(setIsFollowingProgress(false, id))
         }
     } else {
-        return (dispatch) => {
+        return async dispatch => {
             dispatch(setIsFollowingProgress(true, id))
-            follow(id).then(
-                data => {
-                    if (data.resultCode === 0) {
-                        dispatch(followAndUnfollow(id, !followed))
-                    }
-                    dispatch(setIsFollowingProgress(false, id))
-                }
-            )
+            const response = await follow(id)
+            if (response.data.resultCode === 0) {
+                dispatch(followAndUnfollow(id, !followed))
+            }
+            dispatch(setIsFollowingProgress(false, id))
         }
     }
 }

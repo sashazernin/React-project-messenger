@@ -1,6 +1,6 @@
-import c from './Profileinfo.module.css';
+import c from '../Profileinfo.module.css';
 import React from 'react';
-import userImg from "../../../imgs/user-img.png"
+import userImg from "../../../../imgs/user-img.png"
 
 class Profilestatus extends React.Component {
     state = {

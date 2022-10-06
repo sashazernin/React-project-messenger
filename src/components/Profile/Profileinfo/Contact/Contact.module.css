@@ -1,0 +1,15 @@
+.item{
+    padding: 3px;
+    width: 30px;
+    display: flex;
+}
+.image{
+    width: 30px;
+    pointer-events: none;
+    user-select: none;
+}
+.background{
+    height: 30px;
+    background: white;
+    border-radius: 100%;
+}

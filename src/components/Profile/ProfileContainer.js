@@ -4,8 +4,8 @@ import {connect} from "react-redux";
 import {
     getProfileInfoTC,
     getProfileStatusTC,
-    setUserProfile,
-    updateProfileStatusTC
+    setUserProfile, updateProfilePhotoTC,
+    updateProfileStatusTC, updateProfileTC
 } from "../../redux/ProfileReducer";
 import {
     Navigate,
@@ -18,18 +18,35 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
+        let userId = this.props.router.params.userId
+        if (!userId) {
+            userId = this.props.userId
+        }
+        this.props.getProfileInfoTC(userId)
+        this.props.getProfileStatusTC(userId);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.router.params.userId !== prevProps.router.params.userId) {
             let userId = this.props.router.params.userId
             if (!userId) {
                 userId = this.props.userId
             }
             this.props.getProfileInfoTC(userId)
             this.props.getProfileStatusTC(userId);
+        }
     }
 
     render() {
         return (
             <div>
-                <Profile profile = {this.props.profile} status={this.props.status} updateStatus={this.props.updateProfileStatusTC}/>
+                <Profile
+                    isOwner={!this.props.router.params.userId}
+                    profile={this.props.profile}
+                    status={this.props.status}
+                    updateStatus={this.props.updateProfileStatusTC}
+                    updatePhoto={this.props.updateProfilePhotoTC}
+                />
             </div>
         )
     }
@@ -47,6 +64,7 @@ const mapDispatchToProps = {
     getProfileInfoTC,
     getProfileStatusTC,
     updateProfileStatusTC,
+    updateProfilePhotoTC,
 }
 
 function withRouter(ProfileContainer) {
@@ -57,7 +75,7 @@ function withRouter(ProfileContainer) {
         return (
             <ProfileContainer
                 {...props}
-                router={{ location, navigate, params }}
+                router={{location, navigate, params}}
             />
         );
     }
@@ -66,7 +84,7 @@ function withRouter(ProfileContainer) {
 }
 
 export default compose(
-    connect(mapStateToProps,mapDispatchToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     withRouter,
     withAuthRedirect
 )(ProfileContainer)

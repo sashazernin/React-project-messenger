@@ -6,6 +6,8 @@ const add_Post = 'add_Post'
 const Set_User_Profile = 'Set_Users_Profile'
 const Get_Status = 'Get_Status'
 const Update_Status = 'Update_Status'
+const Update_Photo = 'Update_Photo'
+const Is_Saving_Progress = 'Is_Saving_Progress'
 
 let InitialState = {
     Posts: [
@@ -18,7 +20,8 @@ let InitialState = {
     ],
     PostText: '',
     profile: null,
-    status: ""
+    status: "",
+    isSavingProgress: false
 }
 
 const ProfileReducer = (state = InitialState, action) => {
@@ -52,6 +55,18 @@ const ProfileReducer = (state = InitialState, action) => {
             return {
                 ...state,
                 status: action.status
+            }
+        }
+        case Update_Photo: {
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos}
+            }
+        }
+        case Is_Saving_Progress: {
+            return {
+                ...state,
+                isSavingProgress: action.isSavingProgress
             }
         }
         default:
@@ -92,36 +107,46 @@ export const updateStatus = (status) => {
         status
     }
 }
-
-export const getProfileInfoTC = (id) => {
-    return (dispatch) => {
-        getProfileInfo(id).then(
-            data => {
-                dispatch(setUserProfile(data))
-            }
-        )
+export const updatePhoto = (photos) => {
+    return {
+        type: Update_Photo,
+        photos
     }
 }
 
-export const getProfileStatusTC = (status) => {
-    return (dispatch) => {
-        ProfileAPI.getStatus(status).then(
-            data => {
-                dispatch(getStatus(data))
-            }
-        )
+export const switchIsSavingProgress = (isSavingProgress) => {
+    return {
+        type: Is_Saving_Progress,
+        isSavingProgress
     }
 }
 
-export const updateProfileStatusTC = (status) => {
-    return (dispatch) => {
-        ProfileAPI.updateStatus(status).then(
-            data => {
-                if(data.resultCode == 0) {
-                    dispatch(updateStatus(status))
-                }
-            }
-        )
+export const getProfileInfoTC = (id) => async dispatch => {
+    const response = await getProfileInfo(id)
+    dispatch(setUserProfile(response.data))
+}
+
+export const getProfileStatusTC = (status) => async dispatch => {
+    const response = await ProfileAPI.getStatus(status)
+    dispatch(getStatus(response.data))
+}
+
+export const updateProfileStatusTC = (status) => async dispatch => {
+    const response = await ProfileAPI.updateStatus(status)
+    if (response.data.resultCode === 0) {
+        dispatch(updateStatus(status))
+    }
+}
+export const updateProfilePhotoTC = (image) => async dispatch => {
+    const response = await ProfileAPI.updatePhoto(image)
+    if (response.data.resultCode === 0) {
+        dispatch(updatePhoto(response.data.data.photos))
+    }
+}
+export const updateProfileTC = (ProfileInfo) => async dispatch => {
+    dispatch(switchIsSavingProgress(true))
+    const response = await ProfileAPI.updateProfile(ProfileInfo)
+    if (response.data.resultCode === 0) {
     }
 }
 

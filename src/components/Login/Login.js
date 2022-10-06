@@ -12,19 +12,17 @@ const Login = (props) => {
         reset,
     } = useForm({
         mode: 'all',
-
     })
-
     const onSubmit = data => {
-        props.login(data.email,data.password,data.rememberMe,setError)
+        props.login(data.email, data.password, data.rememberMe, setError)
         reset()
     }
 
-    if(props.isAuth){
+    if (props.isAuth) {
         return <Navigate to={'/Profile'}/>
     }
 
-    return(
+    return (
         <div>
             <h1>Login</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -32,31 +30,35 @@ const Login = (props) => {
                     <input {...register('email',
                         {
                             required: "required filed",
-                            pattern:{
+                            pattern: {
                                 value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                                 message: 'Pleace enter the valid email'
                             }
                         })}
-                        onFocus={() => {clearErrors()}}
+                           onFocus={() => {
+                               clearErrors()
+                           }}
                            placeholder={"Email"}/>
                 </div>
-                {errors.email && <div style={{color:'red'}}>{errors.email.message}</div>}
+                {errors.email && <div style={{color: 'red'}}>{errors.email.message}</div>}
                 <div>
                     <input {...register('password',
                         {
                             required: "required filed"
                         })}
-                           onFocus={() => {clearErrors()}}
+                           onFocus={() => {
+                               clearErrors()
+                           }}
                            placeholder={"Password"}/>
                 </div>
-                {errors.password && <div style={{color:'red'}}>{errors.password.message}</div>}
+                {errors.password && <div style={{color: 'red'}}>{errors.password.message}</div>}
                 <div>
                     <input {...register('rememberMe')} type={"checkbox"}/> remember me
                 </div>
                 <div>
-                    <button >Login</button>
+                    <button>Login</button>
                 </div>
-                {errors.server && <div style={{color:'red'}}>{errors.server.message}</div>}
+                {errors.server && <div style={{color: 'red'}}>{errors.server.message}</div>}
             </form>
         </div>
     )

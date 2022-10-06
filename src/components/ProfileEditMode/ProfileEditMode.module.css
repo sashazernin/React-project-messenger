@@ -1,0 +1,15 @@
+.body {
+    display: flex;
+}
+.cancel_button{
+    text-align: center;
+    margin: 5px;
+    text-decoration: none;
+    border-radius: 5px;
+    color: white;
+    padding: 3px 6px;
+    background: rgb(114, 114, 114);
+}
+.cancel_button:hover{
+    background: rgb(162, 162, 162);
+}
