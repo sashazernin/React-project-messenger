@@ -1,6 +1,7 @@
 import {SubmitHandler, useForm} from 'react-hook-form'
 import React from "react";
 import {Navigate} from "react-router-dom";
+import c from "./Login.module.css"
 
 const Login = (props) => {
     const {
@@ -14,7 +15,7 @@ const Login = (props) => {
         mode: 'all',
     })
     const onSubmit = data => {
-        props.login(data.email, data.password, data.rememberMe, setError)
+        props.login(data.email, data.password, data.rememberMe, data.captcha, setError)
         reset()
     }
 
@@ -58,6 +59,15 @@ const Login = (props) => {
                 <div>
                     <button>Login</button>
                 </div>
+                {props.captchaUrl &&
+                    <div className={c.captcha}>
+                        <img src={props.captchaUrl}/>
+                        <input {...register(
+                            "captcha"
+                        )} placeholder={"Captcha"}
+                        />
+                    </div>
+                }
                 {errors.server && <div style={{color: 'red'}}>{errors.server.message}</div>}
             </form>
         </div>

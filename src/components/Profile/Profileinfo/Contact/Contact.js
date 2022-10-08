@@ -3,7 +3,6 @@ import c from "./Contact.module.css"
 import {Link, NavLink, Route} from "react-router-dom";
 
 const Contact = (props) => {
-    console.log(props.contact)
     return(
         <div>
             {props.contact ?
