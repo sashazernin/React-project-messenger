@@ -34,7 +34,7 @@ const ProfileInfo = (props) => {
                     <img className={c.photo}
                          src={props.profile.photos.large ? props.profile.photos.large : userImg}>
                     </img>
-                    <NavLink className={c.edit_button} to="/Edit">Edit</NavLink>
+                    {props.isOwner && <NavLink className={c.edit_button} to="/Edit">Edit</NavLink>}
                 </div>
                 <div className={c.info__text_block}>
                     {props.profile.fullName ?

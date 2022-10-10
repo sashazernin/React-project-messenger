@@ -5,11 +5,8 @@ const Message_Text = 'Message_Text'
 
 let InitialState = {
     Messages: [
-        {id:"1",message:"Damir loh"},
-        {id:"2",message:"soglasen?"},
-        {id:"3",message:"che ignorish?"},
-        {id:"4",message:"a ti i est damir"},
-        {id:"5",message:"ti loh"},
+        {id:"1",message:"Hi"},
+        {id:"2",message:"How are you?"}
     ],
         MessageText: ""
 }

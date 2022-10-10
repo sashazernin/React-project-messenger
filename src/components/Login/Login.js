@@ -39,7 +39,9 @@ const Login = (props) => {
                            onFocus={() => {
                                clearErrors()
                            }}
-                           placeholder={"Email"}/>
+                           placeholder={"Email"}
+                           type='text'
+                    />
                 </div>
                 {errors.email && <div style={{color: 'red'}}>{errors.email.message}</div>}
                 <div>
@@ -50,7 +52,9 @@ const Login = (props) => {
                            onFocus={() => {
                                clearErrors()
                            }}
-                           placeholder={"Password"}/>
+                           placeholder={"Password"}
+                           type='password'
+                    />
                 </div>
                 {errors.password && <div style={{color: 'red'}}>{errors.password.message}</div>}
                 <div>
@@ -65,6 +69,7 @@ const Login = (props) => {
                         <input {...register(
                             "captcha"
                         )} placeholder={"Captcha"}
+                               type='text'
                         />
                     </div>
                 }

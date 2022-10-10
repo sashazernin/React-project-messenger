@@ -2,8 +2,17 @@ import c from './ProfileStatus.module.css';
 import React, {useEffect} from 'react';
 import userImg from "../../../../imgs/user-img.png"
 import {useState} from "react";
+import {useForm} from "react-hook-form";
 
 const ProfileStatusWithHooks = (props) => {
+
+    const {
+        register,
+        formState: {errors},
+        reset
+    } = useForm({
+        mode: "all"
+    })
 
     let [editMode, setEditMode] = useState(false)
     let [status, setStatus] = useState(props.status)
@@ -16,28 +25,36 @@ const ProfileStatusWithHooks = (props) => {
     )
 
     const switchEditMode = () => {
-        if (props.isOwner) {
-            setEditMode(!editMode)
-        }
+        setEditMode(!editMode)
     }
     const onStatusChange = (e) => {
-        setStatus(e.target.value)
-        props.updateStatus(e.target.value)
+        if (!errors.editStatus) {
+            setStatus(e.target.value)
+            props.updateStatus(e.target.value)
+        }
+        reset()
         switchEditMode()
     }
     return (
-        <div className={c.body}>
+        <form className={c.body}>
             {!editMode ?
-                props.isOwner &&
                 <div>
-                    <span onClick={switchEditMode}> {status ? status : 'Status'}</span>
+                    <span onClick={props.isOwner && switchEditMode}> {status ? status : 'Status'}</span>
                 </div>
                 :
                 <div>
-                    <input type="text" onBlur={onStatusChange} autoFocus={true} defaultValue={status}/>
+                    <input {...register('editStatus', {
+                            required: {},
+                            maxLength: {
+                                value: 300,
+                                message: "The maximum length of the status is 300 symbols"
+                            }
+                        }
+                    )} type="text" onBlur={onStatusChange} autoFocus={true} defaultValue={status}/>
+                    {errors.editStatus && <div style={{color: 'red'}}>{errors.editStatus.message}</div>}
                 </div>
             }
-        </div>
+        </form>
     )
 }
 export default ProfileStatusWithHooks;

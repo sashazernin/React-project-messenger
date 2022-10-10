@@ -2,7 +2,7 @@ import React from "react";
 import {useForm} from "react-hook-form";
 import c from "./ProfileEditMode.module.css"
 import {Navigate, NavLink} from "react-router-dom";
-import Preloader from "../common/Preloader/Preloader";
+import Preloader from "../../common/Preloader/Preloader";
 
 const ProfileEditMode = (props) => {
 

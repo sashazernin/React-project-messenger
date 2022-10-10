@@ -2,13 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f83cba22-92a2-41a0-9865-11c9aac93bfe" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Login/Login.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dialogs/Dialog/Dialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dialogs/Dialog/Dialog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dialogs/Dialog/Dialog.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dialogs/Dialog/Dialog.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Login/LoginContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/LoginContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Profile/Profileinfo/Contact/Contact.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/Profileinfo/Contact/Contact.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Profile/Posts/Post/Post.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/Posts/Post/Post.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Profile/Profileinfo/ProfileInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/Profileinfo/ProfileInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Profile/Profileinfo/ProfileStatus/ProfileStatusWithHooks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/Profileinfo/ProfileStatus/ProfileStatusWithHooks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProfileEditMode/ProfileEditMode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/ProfileEditMode/ProfileEditMode.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProfileEditMode/ProfileEditMode.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/ProfileEditMode/ProfileEditMode.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProfileEditMode/ProfileEditModeContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/ProfileEditMode/ProfileEditModeContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/AppReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/AppReducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/AuthReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/AuthReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/MessagesReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/MessagesReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/ProfileReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/ProfileReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/UsersReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/UsersReducer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +53,7 @@
       <recent name="C:\React-project-messenger\src\components\ProfileEditMode" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\React-project-messenger\src\components\Profile" />
       <recent name="C:\React-project-messenger\src\components\EditProfile" />
       <recent name="C:\React-project-messenger\src\components\Profile\Profileinfo\ProfileStatus" />
       <recent name="C:\React-project-messenger\src\components\Profile\Profileinfo\Contact" />
@@ -69,7 +80,7 @@
       <workItem from="1664826233371" duration="2426000" />
       <workItem from="1664828697921" duration="1147000" />
       <workItem from="1664829935434" duration="84000" />
-      <workItem from="1664830135065" duration="83405000" />
+      <workItem from="1664830135065" duration="92021000" />
     </task>
     <servers />
   </component>

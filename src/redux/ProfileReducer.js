@@ -122,31 +122,52 @@ export const switchIsSavingProgress = (isSavingProgress) => {
 }
 
 export const getProfileInfoTC = (id) => async dispatch => {
-    const response = await getProfileInfo(id)
-    dispatch(setUserProfile(response.data))
+    try {
+        const response = await getProfileInfo(id)
+        dispatch(setUserProfile(response.data))
+    } catch (error) {
+        alert('server error')
+    }
 }
 
 export const getProfileStatusTC = (status) => async dispatch => {
-    const response = await ProfileAPI.getStatus(status)
-    dispatch(getStatus(response.data))
+    try {
+        const response = await ProfileAPI.getStatus(status)
+        dispatch(getStatus(response.data))
+    } catch (error) {
+        alert('server error')
+    }
 }
 
 export const updateProfileStatusTC = (status) => async dispatch => {
-    const response = await ProfileAPI.updateStatus(status)
-    if (response.data.resultCode === 0) {
-        dispatch(updateStatus(status))
+    try {
+        const response = await ProfileAPI.updateStatus(status)
+        if (response.data.resultCode === 0) {
+            dispatch(updateStatus(status))
+        }
+    } catch (error) {
+        alert('server error')
     }
 }
 export const updateProfilePhotoTC = (image) => async dispatch => {
-    const response = await ProfileAPI.updatePhoto(image)
-    if (response.data.resultCode === 0) {
-        dispatch(updatePhoto(response.data.data.photos))
+    try {
+        const response = await ProfileAPI.updatePhoto(image)
+        if (response.data.resultCode === 0) {
+            dispatch(updatePhoto(response.data.data.photos))
+        }
+    } catch (error) {
+        alert('server error')
     }
 }
 export const updateProfileTC = (ProfileInfo) => async dispatch => {
     dispatch(switchIsSavingProgress(true))
-    const response = await ProfileAPI.updateProfile(ProfileInfo)
-    if (response.data.resultCode === 0) {
+    try {
+        const response = await ProfileAPI.updateProfile(ProfileInfo)
+        if (response.data.resultCode === 0) {
+            alert('update status error')
+        }
+    } catch (error) {
+        alert('server error')
     }
 }
 

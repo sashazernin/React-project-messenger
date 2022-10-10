@@ -1,12 +1,15 @@
 .content{
     margin-bottom: 10px;
     padding: 10px;
-    background-color: gray;
+    background-color: #7a7a7a;
 }
 .content:hover{
-    background-color: #9a9a9a;
+    background-color: #333333;
 }
 .avatar{
     width: 50px;
     border-radius: 50%;
+}
+.name{
+    color: white;
 }

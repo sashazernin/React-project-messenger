@@ -2,7 +2,7 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginContainer from "./components/Login/LoginContainer";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
+//import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import MessagesContainer from "./components/Messages/MessagesContainer";
 import {connect} from "react-redux";
 import {compose} from "redux";
@@ -11,15 +11,17 @@ import Preloader from "./components/common/Preloader/Preloader";
 import './App.css';
 import React from 'react';
 import Menu from './components/Menu/Menu';
-import {BrowserRouter, Routes, Route, Redirect, withRouter, HashRouter} from "react-router-dom";
-import ProfileEditModeContainer from "./components/ProfileEditMode/ProfileEditModeContainer";
-//let DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"))
+import {BrowserRouter, Routes, Route, Redirect, withRouter, HashRouter, Navigate} from "react-router-dom";
+import ProfileEditModeContainer from "./components/Profile/ProfileEditMode/ProfileEditModeContainer";
+
+let DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"))
 
 
-class App extends React.Component{
+class App extends React.Component {
     componentDidMount() {
         this.props.initializeApp()
     }
+
     render() {
         if (!this.props.initialized) {
             return <Preloader/>
@@ -32,19 +34,19 @@ class App extends React.Component{
                         <Menu/>
                         <Routes>
                             <Route path='Edit' element={<ProfileEditModeContainer/>}/>
-                            <Route path='' element={<ProfileContainer/>}/>
-                                <Route path="/Dialogs/" element={
-                                    <React.Suspense fallback={<Preloader/>}>
+                            <Route path='' element={<Navigate to='Profile'/>}/>
+                            <Route path="/Dialogs/" element={
+                                <React.Suspense fallback={<Preloader/>}>
                                     <DialogsContainer/>
-                                    </React.Suspense>
-                                }/>
-
+                                </React.Suspense>
+                            }/>
                             <Route path="Dialogs/*" element={<MessagesContainer/>}/>
                             <Route path='Profile/:userId' element={<ProfileContainer/>}/>
                             <Route path='Profile/' element={<ProfileContainer/>}/>
                             <Route path="Users" element={<UsersContainer/>}/>
                             <Route path="Login" element={<LoginContainer/>}/>
-                    </Routes>
+                            <Route path="*" element={"Not found"}/>
+                        </Routes>
                     </div>
                 </div>
             </HashRouter>
@@ -58,5 +60,5 @@ const mapStateToProps = (state) => ({
 )
 
 export default compose(
-    connect(mapStateToProps,{initializeApp}),
+    connect(mapStateToProps, {initializeApp}),
 )(App)

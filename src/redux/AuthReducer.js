@@ -52,41 +52,55 @@ export const setCaptchaUrl = (url) => {
 }
 
 export const getAuthTC = () => async dispatch => {
-    const response = await getAuth()
-    if (response.data.resultCode === 0) {
-        let {id, email, login} = response.data.data
-        dispatch(setAuthUserData(id, email, login, true))
+    try {
+        const response = await getAuth()
+        if (response.data.resultCode === 0) {
+            let {id, email, login} = response.data.data
+            dispatch(setAuthUserData(id, email, login, true))
+        }
+    } catch (error) {
+        alert('server error')
     }
 }
 
 export const login = (email, password, rememberMe, captcha, setError) => async dispatch => {
-    const response = await AuthApi.login(email, password, rememberMe, captcha)
-    switch (response.data.resultCode) {
-        case 0: {
-            if(captcha != null){
-                dispatch(setCaptchaUrl(null))
+    try {
+        const response = await AuthApi.login(email, password, rememberMe, captcha)
+        switch (response.data.resultCode) {
+            case 0: {
+                if (captcha != null) {
+                    dispatch(setCaptchaUrl(null))
+                }
+                dispatch(getAuthTC())
             }
-            dispatch(getAuthTC())
-        }break
-        case 10: {
+                break
+            case 10: {
                 const response = await SecurityAPI.getCaptcha()
                 dispatch(setCaptchaUrl(response.data.url))
                 setError('captcha', {
                     message: response.data.messages
                 })
-        }break
-        default: {
-            setError('server', {
-                message: response.data.messages
-            })
+            }
+                break
+            default: {
+                setError('server', {
+                    message: response.data.messages
+                })
+            }
         }
+    } catch (error) {
+        alert('server error')
     }
 }
 
 export const logout = () => async dispatch => {
-    const response = await AuthApi.logout()
-    if (response.data.resultCode === 0) {
-        dispatch(setAuthUserData(null, null, null, false))
+    try {
+        const response = await AuthApi.logout()
+        if (response.data.resultCode === 0) {
+            dispatch(setAuthUserData(null, null, null, false))
+        }
+    } catch (error) {
+        alert('server error')
     }
 }
 

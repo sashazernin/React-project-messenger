@@ -113,31 +113,43 @@ export const setIsFollowingProgress = (progressMeaning, userId) => {
 
 export const getUsersTC = (currentPage, pageSize) => async dispatch => {
     dispatch(setLoadingMeaning(true))
-    const response = await getUsers(currentPage, pageSize)
-    dispatch(setLoadingMeaning(false))
-    dispatch(setUsers(response.data.items))
-    dispatch(setTotalUsersCount(response.data.totalCount))
-    dispatch(setCurrentPage(currentPage + 1))
+    try {
+        const response = await getUsers(currentPage, pageSize)
+        dispatch(setLoadingMeaning(false))
+        dispatch(setUsers(response.data.items))
+        dispatch(setTotalUsersCount(response.data.totalCount))
+        dispatch(setCurrentPage(currentPage + 1))
+    } catch (error) {
+        alert('server error')
+    }
 }
 
 export const followAndUnfollowTC = (followed, id) => {
     if (followed) {
         return async dispatch => {
             dispatch(setIsFollowingProgress(true, id))
-            const response = await unfollow(id)
-            if (response.data.resultCode === 0) {
-                dispatch(followAndUnfollow(id, !followed))
+            try {
+                const response = await unfollow(id)
+                if (response.data.resultCode === 0) {
+                    dispatch(followAndUnfollow(id, !followed))
+                }
+                dispatch(setIsFollowingProgress(false, id))
+            } catch (error) {
+                alert('server error')
             }
-            dispatch(setIsFollowingProgress(false, id))
         }
     } else {
         return async dispatch => {
             dispatch(setIsFollowingProgress(true, id))
-            const response = await follow(id)
-            if (response.data.resultCode === 0) {
-                dispatch(followAndUnfollow(id, !followed))
+            try {
+                const response = await follow(id)
+                if (response.data.resultCode === 0) {
+                    dispatch(followAndUnfollow(id, !followed))
+                }
+                dispatch(setIsFollowingProgress(false, id))
+            } catch (error) {
+                alert('server error')
             }
-            dispatch(setIsFollowingProgress(false, id))
         }
     }
 }
